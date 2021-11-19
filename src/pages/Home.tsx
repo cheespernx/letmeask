@@ -16,16 +16,18 @@ export function Home() {
 
   const navigate = useNavigate();
 
-  const { user, signInWithGoogle } = useAuth()
+  const { user, signInWithGoogle } = useAuth();
 
   const [ roomCode, setRoomCode ] = useState('');
  
   async function handleCreateRoom(){
-
     if(!user){ 
-      await signInWithGoogle()
+      await signInWithGoogle().catch((error) => {
+        alert('Você precisa estar logado para criar uma sala!')
+      })
+      return;
     }
-    navigate('/rooms/new', {replace: true})
+    navigate(`/rooms/new`, {replace: true})
   }
 
   async function handleJoinRoom(event: FormEvent){
@@ -38,7 +40,12 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if(!roomRef.exists()){
-      alert('Room does not exist.');
+      alert('Esta sala não existe.');
+      return;
+    }
+
+    if(roomRef.val().endedAt){
+      alert('Esta sala já foi encerrada!');
       return;
     }
 

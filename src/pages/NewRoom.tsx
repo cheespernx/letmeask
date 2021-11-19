@@ -6,7 +6,6 @@ import logoImg from '../assets/images/logo.svg'
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
 import { database } from '../services/firebase';
-
 import { useAuth } from '../hooks/useAuth';
 
 export function NewRoom() {
@@ -30,7 +29,7 @@ export function NewRoom() {
       authorId: user?.id
     })
 
-    navigate(`/rooms/${firebaseRoom.key}`, {replace: true})
+    navigate(`/admin/rooms/${firebaseRoom.key}`, {replace: true})
   }
 
   return (
@@ -43,6 +42,7 @@ export function NewRoom() {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="LetMeAsk" />
+            <h3>Olá, {user?.name}!</h3>
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input

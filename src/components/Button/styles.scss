@@ -14,6 +14,16 @@
     img {
         margin-right: 8px;
     }
+    &.outlined {
+        background: #fff;
+        border: 1px solid #835afd;
+        color: #835afd;
+    }
+    &.danger {
+        background: rgb(228, 63, 57);
+        border: 0;
+        color: #ffffff;
+    }
     &:not(:disabled):hover {
         filter: brightness(0.8);
     }
